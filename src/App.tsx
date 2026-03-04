@@ -7,7 +7,6 @@ import ValuePropsSection from './components/ValuePropsSection';
 import IndustriesSection from './components/IndustriesSection';
 import TrustSection from './components/TrustSection';
 import DemoSection from './components/DemoSection';
-import TestimonialsSection from './components/TestimonialsSection';
 import PricingSection from './components/PricingSection';
 import FAQSection from './components/FAQSection';
 import CTASection from './components/CTASection';
@@ -58,6 +57,9 @@ function App() {
       {/* Hero — content swaps per tab */}
       <HeroSection data={data.hero} activeTab={activeTab} />
 
+      {/* Live Demo — activeTab conditional rendering built inside */}
+      <DemoSection activeTab={activeTab} />
+
       {/* Recruiter Comparison — only visible on recruiter tab */}
       {activeTab === 'recruiter' && <RecruiterComparisonSection />}
 
@@ -92,8 +94,6 @@ function App() {
       {/* Trust & Ethics — shared across tabs */}
       <TrustSection data={data.trust} />
 
-      {/* Live Demo — activeTab conditional rendering built inside */}
-      <DemoSection activeTab={activeTab} />
 
       {/* Testimonials — shared section */}
       {/* <TestimonialsSection /> */}

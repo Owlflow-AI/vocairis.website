@@ -24,6 +24,12 @@ export default function DemoSection({ activeTab = 'home' }: DemoSectionProps) {
 
     const [showSettings, setShowSettings] = useState(false);
 
+    // Captcha States
+    const [showCaptchaModal, setShowCaptchaModal] = useState(false);
+    const [captchaCode, setCaptchaCode] = useState('');
+    const [userInputCaptcha, setUserInputCaptcha] = useState('');
+    const [captchaError, setCaptchaError] = useState(false);
+
     // Default dynamic variables from user's prompt
     const [dynamicVariables, setDynamicVariables] = useState<DynamicVariables>({
         name: 'Sarah Jenkins',
@@ -62,7 +68,33 @@ export default function DemoSection({ activeTab = 'home' }: DemoSectionProps) {
         };
     }, [conversation.status]);
 
-    const handleStartCall = async () => {
+    const generateCaptcha = () => {
+        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        let result = '';
+        for (let i = 0; i < 5; i++) {
+            result += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return result;
+    };
+
+    const handleStartCall = () => {
+        if (conversation.status === 'connected' || conversation.status === 'connecting') return;
+        setUserInputCaptcha('');
+        setCaptchaError(false);
+        setCaptchaCode(generateCaptcha());
+        setShowCaptchaModal(true);
+    };
+
+    const verifyAndStartCall = () => {
+        if (userInputCaptcha.toUpperCase() === captchaCode) {
+            setShowCaptchaModal(false);
+            executeStartCall();
+        } else {
+            setCaptchaError(true);
+        }
+    };
+
+    const executeStartCall = async () => {
         try {
             await navigator.mediaDevices.getUserMedia({ audio: true });
 
@@ -390,6 +422,53 @@ export default function DemoSection({ activeTab = 'home' }: DemoSectionProps) {
                     </div>
                 </AnimatedSection>
             </div>
+
+            {/* Captcha Modal */}
+            {showCaptchaModal && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+                    <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-6 md:p-8 max-w-[360px] w-full border border-gray-200 dark:border-gray-800 animate-in fade-in zoom-in duration-200">
+                        <div className="flex justify-center mb-4">
+                            <div className="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
+                                <span className="material-icons text-gray-900 dark:text-white text-2xl">shield</span>
+                            </div>
+                        </div>
+                        <h3 className="text-xl font-bold text-center text-gray-900 dark:text-white mb-2">Security Check</h3>
+                        <p className="text-sm text-center text-gray-500 dark:text-gray-400 mb-6">Please enter the security code below to start the live demo call.</p>
+
+                        <div className="bg-gray-100 dark:bg-black border border-gray-200 dark:border-gray-800 rounded-2xl p-4 flex items-center justify-center mb-6 select-none relative overflow-hidden group">
+                            {/* Noise overlay */}
+                            <div className="absolute inset-0 opacity-[0.03] dark:opacity-20 pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
+                            {/* Grid overlay */}
+                            <div className="absolute inset-0" style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)', backgroundSize: '10px 10px' }}></div>
+                            <span className="font-mono text-4xl font-black tracking-[0.3em] text-gray-800 dark:text-gray-200 relative z-10 translate-x-2 drop-shadow-sm">{captchaCode}</span>
+                        </div>
+
+                        <div className="space-y-5">
+                            <div>
+                                <input
+                                    type="text"
+                                    value={userInputCaptcha}
+                                    onChange={(e) => {
+                                        setUserInputCaptcha(e.target.value.toUpperCase());
+                                        setCaptchaError(false);
+                                    }}
+                                    placeholder="Enter 5-digit code"
+                                    maxLength={5}
+                                    className={`w-full bg-gray-50 dark:bg-gray-800 border ${captchaError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-200 dark:border-gray-700 focus:border-gray-900 dark:focus:border-white focus:ring-gray-900 dark:focus:ring-white'} rounded-xl px-4 py-3.5 text-center text-lg font-bold tracking-widest text-gray-900 dark:text-white outline-none transition-all uppercase placeholder:font-normal placeholder:tracking-normal placeholder:text-gray-400`}
+                                    onKeyDown={(e) => e.key === 'Enter' && userInputCaptcha.length === 5 && verifyAndStartCall()}
+                                    autoFocus
+                                />
+                                {captchaError && <p className="text-red-500 text-xs font-semibold mt-2.5 text-center flex items-center justify-center gap-1"><span className="material-icons text-[14px]">error</span> Incorrect code, try again.</p>}
+                            </div>
+
+                            <div className="flex gap-3 pt-1">
+                                <button onClick={() => setShowCaptchaModal(false)} className="flex-1 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold py-3.5 rounded-xl transition-colors text-sm">Cancel</button>
+                                <button onClick={verifyAndStartCall} disabled={userInputCaptcha.length !== 5} className="flex-1 bg-gray-900 dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-100 text-white dark:text-gray-900 font-bold py-3.5 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm flex items-center justify-center gap-1.5 shadow-[0_4px_14px_0_rgba(0,0,0,0.1)] dark:shadow-[0_4px_14px_0_rgba(255,255,255,0.1)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_6px_20px_rgba(255,255,255,0.15)] hover:-translate-y-0.5"><span className="material-icons text-[18px]">verified</span> Verify & Call</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
     );
 }
