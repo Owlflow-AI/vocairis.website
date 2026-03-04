@@ -188,9 +188,9 @@ export default function RecruiterPricingSection() {
 
                 <AnimatedSection delay={0.4}>
                     <div className="flex justify-center mt-12">
-                        <button className="bg-gray-900 dark:bg-white text-white dark:text-black px-10 py-4 rounded-full text-base font-semibold hover:opacity-90 transition-all hover:shadow-2xl hover:shadow-gray-900/20 hover:-translate-y-0.5">
+                        <a href="mailto:hello@vocairis.com" className="bg-gray-900 dark:bg-white text-white dark:text-black px-10 py-4 rounded-full text-base font-semibold hover:opacity-90 transition-all hover:shadow-2xl hover:shadow-gray-900/20 hover:-translate-y-0.5 inline-block text-center">
                             Start Free Trial
-                        </button>
+                        </a>
                     </div>
                 </AnimatedSection>
             </div>
