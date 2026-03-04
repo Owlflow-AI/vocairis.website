@@ -331,15 +331,9 @@ export default function DemoSection({ activeTab = 'home' }: DemoSectionProps) {
                                             </div>
 
                                             <div className="space-y-4 pb-4">
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                    <div className="space-y-1.5">
-                                                        <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">Candidate Name</label>
-                                                        <input type="text" name="name" value={dynamicVariables.name} onChange={handleVariableChange} className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" />
-                                                    </div>
-                                                    <div className="space-y-1.5">
-                                                        <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">Phone Number</label>
-                                                        <input type="text" name="user_number" value={dynamicVariables.user_number} onChange={handleVariableChange} className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" />
-                                                    </div>
+                                                <div className="space-y-1.5">
+                                                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">Candidate Name</label>
+                                                    <input type="text" name="name" value={dynamicVariables.name} onChange={handleVariableChange} className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" />
                                                 </div>
 
                                                 <div className="space-y-1.5">
