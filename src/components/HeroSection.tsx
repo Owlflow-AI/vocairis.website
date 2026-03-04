@@ -64,9 +64,9 @@ export default function HeroSection({ data, activeTab }: HeroSectionProps) {
 
                 <AnimatedSection delay={0.3}>
                     <div className="flex flex-col sm:flex-row justify-center gap-4">
-                        <a href="mailto:hello@vocairis.com" className="bg-gray-900 dark:bg-white text-white dark:text-black px-8 py-3.5 rounded-full text-base font-semibold hover:opacity-90 transition-all hover:shadow-2xl hover:shadow-gray-900/20 dark:hover:shadow-white/20 hover:-translate-y-0.5 inline-block text-center">
+                        <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="bg-gray-900 dark:bg-white text-white dark:text-black px-8 py-3.5 rounded-full text-base font-semibold hover:opacity-90 transition-all hover:shadow-2xl hover:shadow-gray-900/20 dark:hover:shadow-white/20 hover:-translate-y-0.5 inline-block text-center cursor-pointer">
                             {data.cta}
-                        </a>
+                        </button>
                     </div>
                 </AnimatedSection>
 
