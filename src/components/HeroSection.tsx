@@ -7,6 +7,8 @@ interface HeroData {
     headingHighlight: string;
     subhead: string;
     cta: string;
+    footer?: string;
+    metrics?: { value: string; label: string }[];
 }
 
 interface HeroSectionProps {
@@ -63,13 +65,31 @@ export default function HeroSection({ data, activeTab }: HeroSectionProps) {
                 <AnimatedSection delay={0.3}>
                     <div className="flex flex-col sm:flex-row justify-center gap-4">
                         <button className="bg-gray-900 dark:bg-white text-white dark:text-black px-8 py-3.5 rounded-full text-base font-semibold hover:opacity-90 transition-all hover:shadow-2xl hover:shadow-gray-900/20 dark:hover:shadow-white/20 hover:-translate-y-0.5">
-                            Start Free Trial
-                        </button>
-                        <button className="bg-transparent border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white px-8 py-3.5 rounded-full text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-all hover:-translate-y-0.5">
-                            Watch Demo
+                            {data.cta}
                         </button>
                     </div>
                 </AnimatedSection>
+
+                {data.metrics && (
+                    <AnimatedSection delay={0.4}>
+                        <div className="mt-12 mb-6 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                            {data.metrics.map((metric, i) => (
+                                <div key={i} className="flex flex-col items-center p-4 rounded-xl bg-gray-50/50 dark:bg-gray-800/30 border border-gray-100 dark:border-gray-800">
+                                    <div className="text-3xl font-bold font-serif text-gray-900 dark:text-white mb-1">{metric.value}</div>
+                                    <div className="text-sm text-gray-500 dark:text-gray-400 font-medium tracking-wide">{metric.label}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </AnimatedSection>
+                )}
+
+                {data.footer && (
+                    <AnimatedSection delay={0.5}>
+                        <div className="mt-6 text-sm font-semibold tracking-wider text-gray-500 dark:text-gray-400 uppercase">
+                            {data.footer}
+                        </div>
+                    </AnimatedSection>
+                )}
 
                 <AnimatedSection delay={0.5}>
                     <div className="mt-16 flex flex-wrap justify-center items-center gap-8 opacity-40">

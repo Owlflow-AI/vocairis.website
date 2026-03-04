@@ -13,6 +13,9 @@ import FAQSection from './components/FAQSection';
 import CTASection from './components/CTASection';
 import Footer from './components/Footer';
 import CookieConsent from './components/CookieConsent';
+import RecruiterComparisonSection from './components/RecruiterComparisonSection';
+import EvaluationEngineSection from './components/EvaluationEngineSection';
+import RecruiterPricingSection from './components/RecruiterPricingSection';
 
 import { homeData } from './data/homeData';
 import { recruiterData } from './data/recruiterData';
@@ -55,12 +58,18 @@ function App() {
       {/* Hero — content swaps per tab */}
       <HeroSection data={data.hero} activeTab={activeTab} />
 
+      {/* Recruiter Comparison — only visible on recruiter tab */}
+      {activeTab === 'recruiter' && <RecruiterComparisonSection />}
+
       {/* Pipeline / How It Works — content swaps per tab */}
       <PipelineSection
         heading={data.pipelineHeading}
         steps={data.pipeline}
         activeTab={activeTab}
       />
+
+      {/* Evaluation Engine — only visible on recruiter tab */}
+      {activeTab === 'recruiter' && <EvaluationEngineSection />}
 
       {/* Value Propositions — content swaps per tab */}
       <ValuePropsSection
@@ -89,8 +98,12 @@ function App() {
       {/* Testimonials — shared section */}
       {/* <TestimonialsSection /> */}
 
-      {/* Pricing — content swaps per tab */}
-      <PricingSection data={data.pricing} activeTab={activeTab} />
+      {/* Pricing — content swaps per tab, custom for recruiter */}
+      {activeTab === 'recruiter' ? (
+        <RecruiterPricingSection />
+      ) : (
+        <PricingSection data={data.pricing} activeTab={activeTab} />
+      )}
 
       {/* FAQ — shared section */}
       <FAQSection />
