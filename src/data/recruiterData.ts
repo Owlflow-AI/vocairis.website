@@ -4,9 +4,9 @@ export const recruiterData = {
     icon: 'group',
     hero: {
         icon: 'group',
-        heading: 'Ready to Transform Your Recruiting?',
-        headingHighlight: 'Transform',
-        subhead: 'Start screening smarter, faster, and at scale. Implement an AI intelligence layer above your existing ATS.',
+        heading: 'AI-Powered Hiring Intelligence for Staffing Firms',
+        headingHighlight: 'Intelligence',
+        subhead: 'Screen smarter. Evaluate faster. Submit with confidence.',
         cta: 'Schedule a Demo ➔',
         metrics: [
             { value: '70%', label: 'Faster Screening' },
