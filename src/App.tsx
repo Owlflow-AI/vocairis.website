@@ -87,7 +87,7 @@ function App() {
       <DemoSection activeTab={activeTab} />
 
       {/* Testimonials — shared section */}
-      <TestimonialsSection />
+      {/* <TestimonialsSection /> */}
 
       {/* Pricing — content swaps per tab */}
       <PricingSection data={data.pricing} activeTab={activeTab} />
