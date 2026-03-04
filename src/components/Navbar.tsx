@@ -3,14 +3,19 @@ import { useState } from 'react';
 interface NavbarProps {
     onTabChange?: (tabId: string) => void;
     onGoToContact?: () => void;
+    onNavClick?: (id: string) => void;
 }
 
-export default function Navbar({ onTabChange, onGoToContact }: NavbarProps) {
+export default function Navbar({ onTabChange, onGoToContact, onNavClick }: NavbarProps) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const scrollTo = (id: string) => {
         setMobileMenuOpen(false);
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        if (onNavClick) {
+            onNavClick(id);
+        } else {
+            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        }
     };
 
     return (

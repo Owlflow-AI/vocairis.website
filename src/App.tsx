@@ -50,10 +50,21 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleNavClick = (id: string) => {
+    if (showContactPage) {
+      setShowContactPage(false);
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="bg-background-light dark:bg-background-dark text-gray-900 dark:text-gray-100 font-display transition-colors duration-300 antialiased selection:bg-gray-200 dark:selection:bg-gray-800">
       {/* Fixed Navbar */}
-      <Navbar onTabChange={handleTabChange} onGoToContact={handleGoToContact} />
+      <Navbar onTabChange={handleTabChange} onGoToContact={handleGoToContact} onNavClick={handleNavClick} />
 
       {showContactPage ? (
         <ContactUsPage />
