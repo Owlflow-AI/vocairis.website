@@ -26,9 +26,10 @@ interface PricingData {
 interface PricingSectionProps {
     data: PricingData;
     activeTab: string;
+    onGoToContact?: () => void;
 }
 
-export default function PricingSection({ data, activeTab }: PricingSectionProps) {
+export default function PricingSection({ data, activeTab, onGoToContact }: PricingSectionProps) {
     return (
         <section id="pricing" className="py-20 bg-white dark:bg-black">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -134,7 +135,7 @@ export default function PricingSection({ data, activeTab }: PricingSectionProps)
                                         </motion.div>
                                     </AnimatePresence>
 
-                                    <button className="w-full h-12 bg-gray-900 dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-100 text-white dark:text-black text-base font-bold rounded-xl transition-all shadow-lg hover:shadow-xl active:scale-[0.98] mb-8 flex items-center justify-center gap-2 group">
+                                    <button onClick={onGoToContact} className="w-full h-12 bg-gray-900 dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-100 text-white dark:text-black text-base font-bold rounded-xl transition-all shadow-lg hover:shadow-xl active:scale-[0.98] mb-8 flex items-center justify-center gap-2 group">
                                         <span>Start Free Trial</span>
                                         <span className="material-icons text-lg transition-transform group-hover:translate-x-1">arrow_forward</span>
                                     </button>

@@ -2,9 +2,10 @@ import { useState } from 'react';
 
 interface NavbarProps {
     onTabChange?: (tabId: string) => void;
+    onGoToContact?: () => void;
 }
 
-export default function Navbar({ onTabChange }: NavbarProps) {
+export default function Navbar({ onTabChange, onGoToContact }: NavbarProps) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const scrollTo = (id: string) => {
@@ -35,7 +36,7 @@ export default function Navbar({ onTabChange }: NavbarProps) {
 
                 {/* Desktop CTA */}
                 <div className="hidden md:flex items-center">
-                    <button onClick={() => scrollTo('contact')} className="bg-gray-900 dark:bg-white text-white dark:text-black px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity inline-block text-center cursor-pointer">
+                    <button onClick={onGoToContact} className="bg-gray-900 dark:bg-white text-white dark:text-black px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity inline-block text-center cursor-pointer">
                         Contact Us
                     </button>
                 </div>
@@ -54,7 +55,7 @@ export default function Navbar({ onTabChange }: NavbarProps) {
                     <button onClick={() => scrollTo('pricing')} className="block w-full text-left text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white py-2">Pricing</button>
                     <button onClick={() => scrollTo('faq')} className="block w-full text-left text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white py-2">FAQ</button>
                     <div className="pt-3 border-t border-gray-200 dark:border-gray-800">
-                        <button onClick={() => { scrollTo('contact'); setMobileMenuOpen(false); }} className="w-full bg-gray-900 dark:bg-white text-white dark:text-black px-5 py-2.5 rounded-full text-sm font-semibold inline-block text-center cursor-pointer">Contact Us</button>
+                        <button onClick={() => { onGoToContact?.(); setMobileMenuOpen(false); }} className="w-full bg-gray-900 dark:bg-white text-white dark:text-black px-5 py-2.5 rounded-full text-sm font-semibold inline-block text-center cursor-pointer">Contact Us</button>
                     </div>
                 </div>
             )}

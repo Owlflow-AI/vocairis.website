@@ -14,9 +14,10 @@ interface HeroData {
 interface HeroSectionProps {
     data: HeroData;
     activeTab: string;
+    onGoToContact?: () => void;
 }
 
-export default function HeroSection({ data, activeTab }: HeroSectionProps) {
+export default function HeroSection({ data, activeTab, onGoToContact }: HeroSectionProps) {
     const highlightWord = (text: string, highlight: string) => {
         const parts = text.split(new RegExp(`(${highlight})`, 'i'));
         return parts.map((part, i) =>
@@ -64,7 +65,7 @@ export default function HeroSection({ data, activeTab }: HeroSectionProps) {
 
                 <AnimatedSection delay={0.3}>
                     <div className="flex flex-col sm:flex-row justify-center gap-4">
-                        <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="bg-gray-900 dark:bg-white text-white dark:text-black px-8 py-3.5 rounded-full text-base font-semibold hover:opacity-90 transition-all hover:shadow-2xl hover:shadow-gray-900/20 dark:hover:shadow-white/20 hover:-translate-y-0.5 inline-block text-center cursor-pointer">
+                        <button onClick={onGoToContact} className="bg-gray-900 dark:bg-white text-white dark:text-black px-8 py-3.5 rounded-full text-base font-semibold hover:opacity-90 transition-all hover:shadow-2xl hover:shadow-gray-900/20 dark:hover:shadow-white/20 hover:-translate-y-0.5 inline-block text-center cursor-pointer">
                             {data.cta}
                         </button>
                     </div>

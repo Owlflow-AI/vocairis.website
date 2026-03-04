@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import AnimatedSection from './AnimatedSection';
 
-export default function RecruiterPricingSection() {
+interface RecruiterPricingSectionProps {
+    onGoToContact?: () => void;
+}
+
+export default function RecruiterPricingSection({ onGoToContact }: RecruiterPricingSectionProps) {
     const [resumeCount, setResumeCount] = useState<number>(100);
     const [phoneCandidates, setPhoneCandidates] = useState<number>(20);
     const [phoneMin, setPhoneMin] = useState<number>(5);
@@ -188,7 +192,7 @@ export default function RecruiterPricingSection() {
 
                 <AnimatedSection delay={0.4}>
                     <div className="flex justify-center mt-12">
-                        <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="bg-gray-900 dark:bg-white text-white dark:text-black px-10 py-4 rounded-full text-base font-semibold hover:opacity-90 transition-all hover:shadow-xl hover:shadow-gray-900/10 hover:-translate-y-0.5 cursor-pointer inline-block text-center">
+                        <button onClick={onGoToContact} className="bg-gray-900 dark:bg-white text-white dark:text-black px-10 py-4 rounded-full text-base font-semibold hover:opacity-90 transition-all hover:shadow-xl hover:shadow-gray-900/10 hover:-translate-y-0.5 cursor-pointer inline-block text-center">
                             Start Free Trial
                         </button>
                     </div>
